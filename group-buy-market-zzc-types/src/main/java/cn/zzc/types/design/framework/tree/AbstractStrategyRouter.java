@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 路由
+ * 策略路由抽象类
  *
  * @author zc
  * @create 2025-09-09
