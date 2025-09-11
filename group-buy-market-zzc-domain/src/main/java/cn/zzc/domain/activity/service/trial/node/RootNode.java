@@ -5,7 +5,10 @@ import cn.zzc.domain.activity.model.entity.TrialBalanceEntity;
 import cn.zzc.domain.activity.service.trial.AbstractGroupBuyMarketSupport;
 import cn.zzc.domain.activity.service.trial.factory.DefaultActivityStrategyFactory;
 import cn.zzc.types.design.framework.tree.StrategyHandler;
+import cn.zzc.types.enums.ResponseCode;
+import cn.zzc.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,8 +29,15 @@ public class RootNode extends AbstractGroupBuyMarketSupport<MarketProductEntity,
 
     // 受理功能
     @Override
-    public TrialBalanceEntity apply(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
-        return null;
+    public TrialBalanceEntity doApply(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
+
+        if (StringUtils.isBlank(requestParameter.getUserId()) ||
+                StringUtils.isBlank(requestParameter.getGoodsId()) ||
+                StringUtils.isBlank(requestParameter.getSource()) ||
+                StringUtils.isBlank(requestParameter.getChannel())) {
+            throw new AppException(ResponseCode.ILLEGAL_PARAMETER.getCode(), ResponseCode.ILLEGAL_PARAMETER.getInfo());
+        }
+        return router(requestParameter, dynamicContext);
     }
 
     // 路由

@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS `group_buy_activity`;
 CREATE TABLE `group_buy_activity` (
                                       `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增',
                                       `activity_id` bigint(8) NOT NULL COMMENT '活动ID',
+                                      `activity_name` varchar(128) NOT NULL COMMENT '活动名称',
                                       `source` varchar(8) NOT NULL COMMENT '来源',
                                       `channel` varchar(8) NOT NULL COMMENT '渠道',
                                       `goods_id` varchar(12) NOT NULL COMMENT '商品ID',
@@ -37,9 +38,9 @@ CREATE TABLE `group_buy_activity` (
 LOCK TABLES `group_buy_activity` WRITE;
 /*!40000 ALTER TABLE `group_buy_activity` DISABLE KEYS */;
 
-INSERT INTO `group_buy_activity` (`id`, `activity_id`, `source`, `channel`, `goods_id`, `discount_id`, `group_type`, `take_limit_count`, `target`, `valid_time`, `status`, `start_time`, `end_time`, `tag_id`, `tag_scope`, `create_time`, `update_time`)
+INSERT INTO `group_buy_activity` (`id`, `activity_id`, `activity_name`, `source`, `channel`, `goods_id`, `discount_id`, `group_type`, `take_limit_count`, `target`, `valid_time`, `status`, `start_time`, `end_time`, `tag_id`, `tag_scope`, `create_time`, `update_time`)
 VALUES
-    (1,100123,'s01','c01','9890001','25120207',0,1,1,15,0,'2024-12-07 10:19:40','2024-12-07 10:19:40','1','1','2024-12-07 10:19:40','2024-12-07 10:19:40');
+    (1,100123,'测试活动','s01','c01','9890001','25120207',0,1,1,15,0,'2024-12-07 10:19:40','2024-12-07 10:19:40','1','1','2024-12-07 10:19:40','2024-12-07 10:19:40');
 
 /*!40000 ALTER TABLE `group_buy_activity` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -70,7 +71,45 @@ LOCK TABLES `group_buy_discount` WRITE;
 
 INSERT INTO `group_buy_discount` (`id`, `discount_id`, `discount_name`, `discount_desc`, `discount_type`, `market_plan`, `market_expr`, `tag_id`, `create_time`, `update_time`)
 VALUES
-    (1,9890001,'测试优惠','测试优惠',0,'ZJ','20',NULL,'2024-12-07 10:20:15','2024-12-07 10:20:15');
+    (1,25120207,'测试优惠','测试优惠',0,'ZJ','20',NULL,'2024-12-07 10:20:15','2024-12-07 10:20:15');
 
 /*!40000 ALTER TABLE `group_buy_discount` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# 转储表 sku
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sku`;
+
+CREATE TABLE `sku` (
+                       `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+                       `source` varchar(8) NOT NULL COMMENT '渠道',
+                       `channel` varchar(8) NOT NULL COMMENT '来源',
+                       `goods_id` varchar(16) NOT NULL COMMENT '商品ID',
+                       `goods_name` varchar(128) NOT NULL COMMENT '商品名称',
+                       `original_price` decimal(10,2) NOT NULL COMMENT '商品价格',
+                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                       PRIMARY KEY (`id`),
+                       UNIQUE KEY `uq_goods_id` (`goods_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品信息';
+
+LOCK TABLES `sku` WRITE;
+/*!40000 ALTER TABLE `sku` DISABLE KEYS */;
+
+INSERT INTO `sku` (`id`, `source`, `channel`, `goods_id`, `goods_name`, `original_price`, `create_time`, `update_time`)
+VALUES
+    (1,'s01','c01','9890001','《手写MyBatis：渐进式源码实践》',100.00,'2024-12-21 11:10:06','2024-12-21 11:10:06');
+
+/*!40000 ALTER TABLE `sku` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,6 +1,10 @@
 package cn.zzc.infrastructure.dao.po;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 /**
@@ -10,6 +14,9 @@ import java.util.Date;
  * @create 2025-09-08
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GroupBuyDiscount {
     /**
      * 自增ID

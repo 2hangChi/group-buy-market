@@ -2,6 +2,8 @@ package cn.zzc.domain.activity.service.trial.factory;
 
 import cn.zzc.domain.activity.model.entity.MarketProductEntity;
 import cn.zzc.domain.activity.model.entity.TrialBalanceEntity;
+import cn.zzc.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
+import cn.zzc.domain.activity.model.valobj.SkuVO;
 import cn.zzc.domain.activity.service.trial.node.RootNode;
 import cn.zzc.types.design.framework.tree.StrategyHandler;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,9 @@ public class DefaultActivityStrategyFactory {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class DynamicContext { // 串联功能节点的数据
+
+        private GroupBuyActivityDiscountVO groupBuyActivityDiscountVO;
+        private SkuVO skuVO;
 
     }
 
